@@ -1,19 +1,23 @@
-import { createContext, useContext } from 'react';
+import { createContext, ReactNode, useContext } from "react";
 
 export type ContextProps = {
   isPopulated: string | null;
-  handleOnSet: () => void
+  handleOnSet: () => void;
 };
+
+interface ListContextProps {
+  children: ReactNode;
+}
 
 const ListContext = createContext({} as ContextProps);
 
-export const ListProvider: React.FC = ({ children }) => {
+export const ListProvider = ({ children }: ListContextProps) => {
   const handleOnSet = () => {
-    localStorage.removeItem("populated")
-    localStorage.setItem("populated", 'true')
-  }
+    localStorage.removeItem("populated");
+    localStorage.setItem("populated", "true");
+  };
 
-  const isPopulated = localStorage.getItem("populated")
+  const isPopulated = localStorage.getItem("populated");
 
   return (
     <ListContext.Provider value={{ isPopulated, handleOnSet }}>
