@@ -1,20 +1,23 @@
-import React from "react"
-import { ThemeProvider } from 'styled-components'
-import { theme1 } from './styles/theme/default'
-import GlobalStyle from './styles/globals'
+import React from "react";
+import { ThemeProvider } from "styled-components";
+import { theme1 } from "./styles/theme/default";
+import GlobalStyle from "./styles/globals";
+import { BrowserRouter } from "react-router-dom";
 
-import Routes from './routes/app.routes'
-import { ListProvider } from "contexts/List"
+import AppRoutes from "./routes/app.routes";
+import { ListProvider } from "contexts/List";
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme1} >
+    <ThemeProvider theme={theme1}>
       <ListProvider>
-        <GlobalStyle />
-        <Routes />
+        <BrowserRouter>
+          <GlobalStyle />
+          <AppRoutes />
+        </BrowserRouter>
       </ListProvider>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;

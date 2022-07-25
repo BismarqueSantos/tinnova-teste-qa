@@ -1,21 +1,19 @@
-import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 
-import { Layout } from 'components';
+import { Layout } from "components";
 
-import * as Pages from '../pages';
+import * as Pages from "../pages";
 
-const Routes: React.FC = () => (
+const AppRoutes: React.FC = () => (
   <Layout>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/form" exact component={Pages.Form} />
-        <Route path="/form/view/:cpf" exact component={Pages.Form} />
-        <Route path="/form/edit/:cpf" exact component={Pages.Form} />
-        <Route path="/" exact component={Pages.List} />
-      </Switch>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/form" element={<Pages.Form />} />
+      <Route path="/form/view/:cpf" element={<Pages.Form />} />
+      <Route path="/form/edit/:cpf" element={<Pages.Form />} />
+      <Route path="/" element={<Pages.List />} />
+    </Routes>
   </Layout>
 );
 
-export default Routes;
+export default AppRoutes;

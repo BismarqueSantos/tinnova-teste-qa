@@ -1,127 +1,127 @@
-import React, { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
-import swal from 'sweetalert';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 
-import { Button, InputText, InputCpf } from 'components';
-import { registerData } from '@types'
-import { postInDb, getItem, updatePost } from 'utils/dbActions'
-import { maskCPF, maskPhone } from 'utils/masks'
+import { Button, InputText, InputCpf } from "components";
+import { registerData } from "@types";
+import { postInDb, getItem, updatePost } from "utils/dbActions";
+import { maskCPF, maskPhone } from "utils/masks";
 
 const PageForm: React.FC = () => {
-  const initialValues = { name: "", email: "", cpf: "", phone: "" }
-  const [isEdit, setIsEdit] = useState('');
+  const initialValues = { name: "", email: "", cpf: "", phone: "" };
+  const [isEdit, setIsEdit] = useState("");
   const [loading, setLoading] = useState(false);
   const [isView, setIsView] = useState(false);
   // eslint-disable-next-line
-  const [error, setError] = useState('') 
-  const [formData, setFormData] = useState(initialValues as registerData)
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState(initialValues as registerData);
 
-  const history = useHistory()
-  const params: { cpf: string } = useParams()
+  let { cpf } = useParams();
+  const navigate = useNavigate();
+  const params: any = { cpf: 111 }; //{ cpf: string } = useParams();
 
   useEffect(() => {
-    if (params.cpf) {
+    if (cpf) {
       (async () => {
-        const data = await getItem(params.cpf)
-        setFormData(data)
-        setIsEdit(data.cpf)
-      })()
+        const data = await getItem(cpf);
+        setFormData(data);
+        setIsEdit(data.cpf);
+      })();
     }
 
-    setIsView(history.location.pathname.split('/')[2] === "view")
+    //setIsView(history.location.pathname.split("/")[2] === "view");
     // eslint-disable-next-line
-  }, [])
-
+  }, []);
 
   const emptyField = () => {
     swal({
       title: "Atenção",
       text: "Todos os campos devem ser preenchidos",
       icon: "warning",
-    })
+    });
 
     return;
   };
 
   const handleOnSubmit = () => {
-    Object.keys(formData).forEach(item => {
+    Object.keys(formData).forEach((item) => {
       formData[item] !== "" ? setLoading(false) : emptyField();
     });
 
-    if (formData.name === "") return
+    if (formData.name === "") return;
 
-    setLoading(true)
+    setLoading(true);
 
-    isView && history.push('/')
+    isView! && navigate("/");
 
-    isEdit ? updatePost(isEdit, formData) : postInDb(formData)
+    isEdit ? updatePost(isEdit, formData) : postInDb(formData);
 
     setTimeout(() => {
-      setFormData(initialValues)
-      setLoading(false)
-      history.push('/')
-    }, 600)
-  }
+      setFormData(initialValues);
+      setLoading(false);
+      navigate("/");
+    }, 600);
+  };
 
   return (
     <>
       <InputText
         label="Nome completo"
         placeholder="Digite seu nome"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
-          setFormData({ ...formData, name: e.target.value })}
-        }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setFormData({ ...formData, name: e.target.value });
+        }}
         name="name"
-        error={error === "name" && 'todos os campos devem ser prenchidos'}
+        error={error === "name" && "todos os campos devem ser prenchidos"}
         disabled={isView}
-        value={formData.name}
+        value={formData?.name}
       />
 
       <InputText
         label="E-mail"
         placeholder="Digite seu e-mail"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
-          setFormData({ ...formData, email: e.target.value })}
-        }
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setFormData({ ...formData, email: e.target.value });
+        }}
         name="email"
-        error={error && 'todos os campos devem ser prenchidos'}
+        error={error && "todos os campos devem ser prenchidos"}
         disabled={isView}
-        value={formData.email}
+        value={formData?.email}
       />
 
       <InputCpf
         label="CPF"
         placeholder="Digite seu CPF"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
-          setFormData({ ...formData, cpf: maskCPF(e.target.value) })}
-        }
-        maxLength={14} 
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setFormData({ ...formData, cpf: maskCPF(e.target.value) });
+        }}
+        maxLength={14}
         name="cpf"
-        error={error && 'todos os campos devem ser prenchidos'}
+        error={error && "todos os campos devem ser prenchidos"}
         disabled={isView}
-        value={formData.cpf}
+        value={formData?.cpf}
       />
 
       <InputText
         label="Telefone"
         placeholder="Digite seu telefone"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{
-          setFormData({ ...formData, phone: maskPhone(e.target.value) })}
-        }
-        maxLength={15} 
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+          setFormData({ ...formData, phone: maskPhone(e.target.value) });
+        }}
+        maxLength={15}
         name="phone"
-        error={error && 'todos os campos devem ser prenchidos'}
+        error={error && "todos os campos devem ser prenchidos"}
         disabled={isView}
-        value={formData.phone}
+        value={formData?.phone}
       />
 
       <Button
-        label={isEdit ? isView ? "VOLTAR" : "ATUALIZAR" : "GUARDAR"}
+        label={isEdit ? (isView ? "VOLTAR" : "ATUALIZAR") : "GUARDAR"}
         onClick={handleOnSubmit}
         isLoading={loading}
       />
     </>
-  )
-}
+  );
+};
 
-export default PageForm
+export default PageForm;
