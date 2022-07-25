@@ -14,13 +14,14 @@ import { registerData } from "@types";
 
 import { TableList, Button, ButtonAction } from "components";
 import { useList } from "contexts/List";
+import { useAuth } from "contexts/Auth";
 
 const PageList: React.FC = () => {
   const [data, setData] = useState<registerData[]>([] as registerData[]);
   const { isPopulated, handleOnSet } = useList();
 
-  const history = useParams();
   const navigate = useNavigate();
+  const { handleLogout } = useAuth();
 
   useEffect(() => {
     const data: any = getList();
@@ -114,6 +115,7 @@ const PageList: React.FC = () => {
       )}
 
       <Button label="Adicionar" onClick={() => navigate("./form")} />
+      <Button label="Sair" onClick={handleLogout} />
     </>
   );
 };

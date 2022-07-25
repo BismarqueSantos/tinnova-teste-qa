@@ -1,12 +1,16 @@
+import { BrowserRouter } from "react-router-dom";
+
 import AppRoutes from "./app.routes";
 import AuthRoutes from "./auth.routes";
 
-export const MyRoutes = () => {
-  const auth = true;
+import { useAuth } from "contexts/Auth";
 
-  if (auth) {
-    return <AppRoutes />;
-  } else {
-    return <AuthRoutes />;
-  }
+export const MyRoutes = () => {
+  const { isAuth, isLoading } = useAuth();
+
+  if (isLoading) return <></>;
+
+  return (
+    <BrowserRouter>{isAuth ? <AppRoutes /> : <AuthRoutes />}</BrowserRouter>
+  );
 };
