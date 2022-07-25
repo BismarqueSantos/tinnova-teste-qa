@@ -4,8 +4,8 @@ import { theme1 } from "./styles/theme/default";
 import GlobalStyle from "./styles/globals";
 import { BrowserRouter } from "react-router-dom";
 
-import AppRoutes from "./routes/app.routes";
 import { ListProvider } from "contexts/List";
+import { MyRoutes } from "routes";
 
 const App = () => {
   return (
@@ -13,7 +13,8 @@ const App = () => {
       <ListProvider>
         <BrowserRouter>
           <GlobalStyle />
-          <AppRoutes />
+
+          <MyRoutes />
         </BrowserRouter>
       </ListProvider>
     </ThemeProvider>
