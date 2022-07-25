@@ -1,22 +1,22 @@
 import React from "react";
 import { ThemeProvider } from "styled-components";
-import { theme1 } from "./styles/theme/default";
+import theme from "./styles/theme/light";
 import GlobalStyle from "./styles/globals";
-import { BrowserRouter } from "react-router-dom";
 
 import { ListProvider } from "contexts/List";
+import { AuthProvider } from "contexts/Auth";
 import { MyRoutes } from "routes";
 
 const App = () => {
   return (
-    <ThemeProvider theme={theme1}>
-      <ListProvider>
-        <BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <AuthProvider>
+        <ListProvider>
           <GlobalStyle />
 
           <MyRoutes />
-        </BrowserRouter>
-      </ListProvider>
+        </ListProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 };

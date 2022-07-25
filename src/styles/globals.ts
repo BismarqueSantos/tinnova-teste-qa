@@ -18,6 +18,5 @@ export default createGlobalStyle`
   h6{ font-size: 0.67rem;}
 
   body{
-    color: ${({ theme }) => theme.palette.black.main};
   }
 `;
