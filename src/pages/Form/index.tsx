@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import swal from "sweetalert";
 
 import { Button, InputText, InputCpf } from "components";
@@ -18,7 +18,7 @@ const PageForm: React.FC = () => {
 
   let { cpf } = useParams();
   const navigate = useNavigate();
-  const params: any = { cpf: 111 }; //{ cpf: string } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (cpf) {
@@ -29,7 +29,7 @@ const PageForm: React.FC = () => {
       })();
     }
 
-    //setIsView(history.location.pathname.split("/")[2] === "view");
+    setIsView(location.pathname.split("/")[2] === "view");
     // eslint-disable-next-line
   }, []);
 
