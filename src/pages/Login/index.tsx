@@ -11,7 +11,6 @@ const PageLogin = () => {
     <>
       Boa sorte, e divirta-se no processo, isso é uma experiência. aproveite ao máximo.
       <Button label="Entrar" onClick={handleLogin} />
-      <Button label="Cadastrar" onClick={handleLogin} />
     </>
   );
 };
