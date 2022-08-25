@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
-import { Button } from "components";
+import { Button, Modal } from "components";
 import { useAuth } from "contexts/Auth";
 
 const PageLogin = () => {
+  const [showModalRegister, setShowModalRegister] = useState(false);
   const { handleLogin } = useAuth();
+
   return (
     <>
-      oi
+      Boa sorte, e divirta-se no processo, isso é uma experiência. aproveite ao máximo.
       <Button label="Entrar" onClick={handleLogin} />
-      <br />
+      <Button label="Cadastrar" onClick={handleLogin} />
+      <Modal>Modal</Modal>
     </>
   );
 };
