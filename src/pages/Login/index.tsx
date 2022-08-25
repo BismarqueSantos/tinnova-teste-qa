@@ -18,5 +18,3 @@ const PageLogin = () => {
 
 export default PageLogin;
 
-git config --global user.email "bismarquesilva25@gmail.com"
-  git config --global user.name "BismarqueSantos"
